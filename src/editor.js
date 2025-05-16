@@ -197,26 +197,6 @@ export class PastaMirror {
               },
             },
             {
-              // CHAT everything!
-              any: (view, key) => {
-                let from = view.state.selection.main.from;
-
-                if (key.key.length > 1) {
-                  // ignore everything, that is not just a single character
-                  return false;
-                }
-
-                sendChatMessage({
-                  docId: doc.id,
-                  message: key.key,
-                  from,
-                  user: doc.session.user,
-                  color: doc.session.userColor.lightChat,
-                });
-                return false;
-              },
-            },
-            {
               // any key except Ctrl-? or Shift-? or etc
               any: (_view, key) => {
                 if (!getSettings().pastingMode) return false;

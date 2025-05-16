@@ -38,8 +38,8 @@ let theme = EditorView.theme(
     },
     '.cm-cursor': {
       borderWidth: '2px',
-      borderColor: getColorFromUserHue(),
-      // 'border-left-color': 'transparent',
+      // outline: `2px solid ${getColorFromUserHue()}`,
+      'border-left-color': getColorFromUserHue(),
       // the regular cursor is hidden, because we're showing a nametag..
       // the cursor is part of https://github.com/felixroos/y-codemirror.next
       // i had to fork again because the scrollIntoView was messing with the global scroll

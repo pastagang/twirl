@@ -116,11 +116,5 @@ function makeSession() {
 }
 
 export function getUserName() {
-  const settings = getSettings();
-
-  let name = settings.username?.trim() ?? 'anonymous nudelfan';
-
-  if (name) return name;
-
-  return name;
+  return 'ghost';
 }

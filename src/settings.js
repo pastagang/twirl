@@ -436,8 +436,8 @@ export function getColorFromUserHue(hue = getRandomUserHue()) {
 
 export function getUserColorFromUserHue(hue = getRandomUserHue()) {
   return {
-    color: getColorFromUserHue(hue),
-    light: `hsla(${hue}, 100%, 75%, 0.1875)`,
-    lightChat: `hsla(${hue}, 100%, 75%, 0.575)`,
+    color: getColorFromUserHue(getRandomUserHue()),
+    light: `hsla(${getRandomUserHue()}, 100%, 75%, 0.1875)`,
+    lightChat: `hsla(${getRandomUserHue()}, 100%, 75%, 0.575)`,
   };
 }

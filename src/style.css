@@ -673,3 +673,11 @@ input:disabled {
 .msn-replacement {
   max-height: 3em;
 }
+
+.cm-ySelectionCaretDot {
+  display: none !important;
+}
+
+.cm-ySelectionInfo {
+  display: none !important;
+}
