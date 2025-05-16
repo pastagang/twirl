@@ -16,7 +16,6 @@ import { nudelAlert } from './alert.js';
 import { strudelAutocomplete } from './strudel-autocomplete.js';
 import { sendChatMessage } from './chat.js';
 import { msnPlugin } from './msn/plugin.js';
-import { getWeather } from '../climate.js';
 
 // we need to access these variables from the strudel iframe:
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
@@ -59,18 +58,16 @@ export class PastaMirror {
       console.warn(`ignoring doc with id "${doc.id}"`);
       return;
     }
-    const weather = getWeather();
 
     const state = EditorState.create({
       doc: doc.content,
       extensions: [
         minimalSetup,
         theme,
-        weather.msn ? msnPlugin : [],
         this.flokBasicSetup(doc),
         javascript(),
         getSettings().vimMode ? vim() : [],
-        bracketMatching({ brackets: '()[]{}<>' }),
+        // bracketMatching({ brackets: '()[]{}<>' }),
         ...initialSettings,
         Prec.highest(
           keymap.of([
@@ -283,19 +280,19 @@ export class PastaMirror {
   </div>`,
     );
 
-    const tabsEl = document.querySelector(`.tabs .${side}`);
-    if (!tabsEl) throw new Error('tabs element not found');
-    tabsEl.insertAdjacentHTML(
-      'beforeend',
-      `<button class="tab ${side}" id="tab-${doc.id}">
-            ${doc.id} ${doc.target}
-      </button>`,
-    );
+    // const tabsEl = document.querySelector(`.tabs .${side}`);
+    // if (!tabsEl) throw new Error('tabs element not found');
+    // tabsEl.insertAdjacentHTML(
+    //   'beforeend',
+    //   `<button class="tab ${side}" id="tab-${doc.id}">
+    //         ${doc.id} ${doc.target}
+    //   </button>`,
+    // );
 
     document.querySelector(`#tab-${doc.id}`)?.addEventListener('click', () => {
-      tabsEl.querySelectorAll('.tab').forEach((tab) => {
-        tab.classList.remove('active');
-      });
+      // tabsEl.querySelectorAll('.tab').forEach((tab) => {
+      //   tab.classList.remove('active');
+      // });
       document.querySelector(`#tab-${doc.id}`)?.classList.add('active');
       this.editorViews.get(doc.id)?.focus();
 
@@ -347,12 +344,9 @@ export class PastaMirror {
     // set to true in boxed mode, but only when boxed mode is actually visible
     // we don't want cursor tracking on mobile!
     const scrollIntoView = getSettings().trackRemoteCursors2;
-    const collab = yCollab(text, doc.session.awareness, {
-      showLocalCaret: true,
-      scrollIntoView,
-    });
+    const collab = yCollab(text, doc.session.awareness);
     return [
-      flashField(),
+      // flashField(),
       highlightExtension,
       remoteEvalFlash(doc),
       Prec.high(evalKeymap(doc, { web, defaultMode: 'document' })),

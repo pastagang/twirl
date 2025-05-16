@@ -2,11 +2,7 @@ import { nudelAlert } from './alert.js';
 import { applySettingsToNudel, getSettings } from './settings.js';
 import { PastaMirror } from './editor.js';
 import './style.css';
-import { updateMiniLocations } from '@strudel/codemirror';
-import { getSession } from './session.js';
-import { repeatRepeatRepeatRepeat } from './timedEvents/update.js';
 import { showSongText } from './song.js';
-import { getSyncOffset } from './sync-nonsense.js';
 
 export const pastamirror = new PastaMirror();
 
@@ -18,7 +14,6 @@ export const Frame = {
 };
 
 window.editorViews = pastamirror.editorViews;
-window.getSyncOffset = getSyncOffset;
 
 applySettingsToNudel();
 

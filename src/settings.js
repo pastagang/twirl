@@ -4,7 +4,6 @@ import { clearStrudelHighlights } from './highlight.js';
 import { Frame, pastamirror } from './main.js';
 import { getRandomName } from './random.js';
 import { getUserName, getSession, refreshSession } from './session.js';
-import { getWeather } from '../climate.js';
 
 //=====//
 // API //

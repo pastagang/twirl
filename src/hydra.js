@@ -1,7 +1,7 @@
 import HydraRenderer from 'hydra-synth';
 
-import { getWeather } from '../climate.js';
-import { getNudelHour, NUDEL_HOUR_IN_A_NUDEL_DAY } from './timedEvents/time.js';
+// import { getWeather } from '../climate.js';
+// import { getNudelHour, NUDEL_HOUR_IN_A_NUDEL_DAY } from './timedEvents/time.js';
 
 export class HydraSession {
   constructor({ onError, canvas, onHighlight }) {
@@ -31,7 +31,7 @@ export class HydraSession {
         canvas: this.canvas,
         enableAudio: false,
       });
-      this._hydra.synth.time = getMilliSecondsSinceNudelDayStart() / 1000;
+      this._hydra.synth.time = 0;
     } catch (error) {
       console.error(error);
       this.onError(`${error}`);
@@ -83,23 +83,23 @@ export class HydraSession {
 
     const contexts = {};
 
-    if (window.parent.getWeather().noSamples) {
-      HydraSource.prototype.initImage = () => {
-        throw Error('no samples today (images are samples)');
-      };
-      HydraSource.prototype.initVideo = () => {
-        throw Error('no samples today (videos are samples)');
-      };
-    }
+    // if (window.parent.getWeather().noSamples) {
+    //   HydraSource.prototype.initImage = () => {
+    //     throw Error('no samples today (images are samples)');
+    //   };
+    //   HydraSource.prototype.initVideo = () => {
+    //     throw Error('no samples today (videos are samples)');
+    //   };
+    // }
 
-    if (window.parent.getWeather().noImages) {
-      HydraSource.prototype.initImage = () => {
-        throw Error('no images today');
-      };
-      HydraSource.prototype.initVideo = () => {
-        throw Error('no images today');
-      };
-    }
+    // if (window.parent.getWeather().noImages) {
+    //   HydraSource.prototype.initImage = () => {
+    //     throw Error('no images today');
+    //   };
+    //   HydraSource.prototype.initVideo = () => {
+    //     throw Error('no images today');
+    //   };
+    // }
 
     // Patching initCam
     // so we can override the default camera index with a setting
@@ -202,15 +202,15 @@ export class HydraSession {
     const hydraOut = GlslSource.prototype.out;
     GlslSource.prototype.out = function (_output) {
       let afterTransform = this;
-      const weather = getWeather();
-      if (weather.kaleidoscope) {
-        const amount = 2 + Math.floor((getNudelHour() % NUDEL_HOUR_IN_A_NUDEL_DAY) / 3);
-        afterTransform = afterTransform.kaleid(amount);
-      }
-      if (weather.pixelated) {
-        const pixel = (getNudelHour() % NUDEL_HOUR_IN_A_NUDEL_DAY) + 30;
-        afterTransform = afterTransform.pixelate(pixel, pixel);
-      }
+      // const weather = getWeather();
+      // if (weather.kaleidoscope) {
+      //   const amount = 2 + Math.floor((getNudelHour() % NUDEL_HOUR_IN_A_NUDEL_DAY) / 3);
+      //   afterTransform = afterTransform.kaleid(amount);
+      // }
+      // if (weather.pixelated) {
+      //   const pixel = (getNudelHour() % NUDEL_HOUR_IN_A_NUDEL_DAY) + 30;
+      //   afterTransform = afterTransform.pixelate(pixel, pixel);
+      // }
       hydraOut.bind(afterTransform)(_output);
     };
 

@@ -1,12 +1,8 @@
 import { Session } from '@flok-editor/session';
-import { getStdSource } from './export.js';
 import { pastamirror, Frame } from './main.js';
 import { clearGlobalError, setError, clearLocalError } from './error.js';
 import { getSettings, getUserColorFromUserHue } from './settings.js';
 import { subscribeToChat, unsubscribeFromChat } from './chat.js';
-import { getCurrentMantra } from './timedEvents/mantra.js';
-import { getWeather } from '../climate.js';
-import { EMOTICONS } from './random.js';
 // @ts-ignore
 import { PASTAGANG_ROOM_NAME } from 'https://www.pastagang.cc/pastagang.js';
 
@@ -96,14 +92,12 @@ function makeSession() {
   session.on('eval:js', (msg) => new Function(msg.body)());
   // hydra
   session.on('eval:hydra', (msg) => {
-    msg.body += '\n\n\n' + getStdSource();
     Frame.hydra?.contentWindow.postMessage({ type: 'eval', msg });
   });
   // shader
   session.on('eval:shader', (msg) => Frame.shader?.contentWindow.postMessage({ type: 'eval', msg }));
   // strudel
   session.on('eval:strudel', (msg) => {
-    msg.body += '\n\n\n' + getStdSource();
     return Frame.strudel?.contentWindow.postMessage({ type: 'eval', msg });
   });
   // kabelsalat
@@ -122,24 +116,9 @@ function makeSession() {
 }
 
 export function getUserName() {
-  const weather = getWeather();
   const settings = getSettings();
 
   let name = settings.username?.trim() ?? 'anonymous nudelfan';
-
-  if (weather.mantraName) {
-    // we can replace, because mantra and emotions are never at the same day
-    name = getCurrentMantra();
-  }
-
-  if (weather.emoticons) {
-    // we can replace, because mantra and emotions are never at the same day
-    name = EMOTICONS[Math.floor(Math.random() * EMOTICONS.length)];
-  }
-
-  if (weather.palindromeNames) {
-    name += name.split('').reverse().splice(1).join('');
-  }
 
   if (name) return name;
 

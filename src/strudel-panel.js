@@ -289,9 +289,9 @@ export class StrudelSession {
     const { body: code, docId } = msg;
 
     let injection = '';
-    if (window.parent.getWeather().noSamples) {
-      injection += StrudelSession.noSamplesInjection;
-    }
+    // if (window.parent.getWeather().noSamples) {
+    //   injection += StrudelSession.noSamplesInjection;
+    // }
 
     // injection += StrudelSession.syncedCpmInjection;
     injection += `\nsilence;`;

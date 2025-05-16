@@ -91,7 +91,7 @@ export class NudelCyclist {
       (phase, duration) => {
         if (this.num_ticks_since_cps_change === 0) {
           // @ts-ignore
-          parent.initSync();
+          // parent.initSync();
           this.num_cycles_at_cps_change = this.lastEnd;
           this.seconds_at_cps_change = phase;
         }
@@ -118,8 +118,8 @@ export class NudelCyclist {
             return;
           }
 
-          const a = begin + parent.getSyncOffset() * this.cps;
-          const b = end + parent.getSyncOffset() * this.cps;
+          const a = begin + 0 * this.cps;
+          const b = end + 0 * this.cps;
           // console.log('a', a.toFixed(2));
           // query the pattern for events
           const haps = this.pattern.queryArc(a, b, {
@@ -129,10 +129,7 @@ export class NudelCyclist {
           haps.forEach((hap) => {
             if (hap.hasOnset()) {
               const targetTime =
-                (hap.whole.begin - this.num_cycles_at_cps_change) / this.cps +
-                this.seconds_at_cps_change +
-                latency -
-                parent.getSyncOffset();
+                (hap.whole.begin - this.num_cycles_at_cps_change) / this.cps + this.seconds_at_cps_change + latency - 0;
               // console.log('target', targetTime);
               const duration = hap.duration / this.cps;
               // the following line is dumb and only here for backwards compatibility
@@ -163,7 +160,7 @@ export class NudelCyclist {
       return 0;
     }
     const secondsSinceLastTick = this.getTime() - this.lastTick - this.clock.duration;
-    return this.lastBegin + secondsSinceLastTick * this.cps + parent.getSyncOffset() * this.cps;
+    return this.lastBegin + secondsSinceLastTick * this.cps + 0 * this.cps;
   }
   setStarted(v) {
     this.started = v;
