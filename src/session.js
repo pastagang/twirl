@@ -4,7 +4,8 @@ import { clearGlobalError, setError, clearLocalError } from './error.js';
 import { getSettings, getUserColorFromUserHue } from './settings.js';
 import { subscribeToChat, unsubscribeFromChat } from './chat.js';
 // @ts-ignore
-import { PASTAGANG_ROOM_NAME } from 'https://www.pastagang.cc/pastagang.js';
+// import { PASTAGANG_ROOM_NAME } from 'https://www.pastagang.cc/pastagang.js';
+const PASTAGANG_ROOM_NAME = 'twirlgang';
 
 export function getRoomName() {
   const params = new URLSearchParams(window.location.search);
@@ -60,17 +61,28 @@ function makeSession() {
   });
 
   session.on('change', (documents) => {
-    documents.map((doc) => {
-      if (!pastamirror.currentEditors.has(doc.id)) {
-        pastamirror.createEditor(doc);
-      }
+    console.log(documents);
+    const lowestIdDoc = documents.reduce((prev, current) => {
+      return prev.id < current.id ? prev : current;
     });
+
+    const doc = lowestIdDoc;
+    // documents.map((doc) => {
+    if (!pastamirror.currentEditors.has(doc.id)) {
+      pastamirror.createEditor(doc);
+    }
+    // });
     // https://github.com/pastagang/nudel/issues/102 ???
     const keysIterator = pastamirror.currentEditors?.keys();
+    let deletedSomething = false;
     for (const key of keysIterator) {
-      if (!documents.find((doc) => doc.id === key)) {
+      if (lowestIdDoc.id !== key) {
         pastamirror.deleteEditor(key);
       }
+      deletedSomething = true;
+    }
+    if (deletedSomething) {
+      session.setActiveDocuments([doc]);
     }
   });
 
