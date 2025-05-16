@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script src="/assets/std.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      const { highlightMiniLocations, updateMiniLocations, editorViews } = window.parent;
+      const { getSyncOffset } = window.parent;
+      window.getSyncOffset = getSyncOffset;
+      // this is expected to run in an iframe
+      // this way, strudel runs in an iframe
+      // so it wont mess with the global scope
+      // + we can sandbox the evaluation
+      // the js here is only for plumbing postMessages
+      // + creating the strudel session
+      import { StrudelSession } from '/src/strudel-panel.js';
+      function send(type, msg) {
+        window.parent.postMessage({ type, msg });
+      }
+
+      const strudel = new StrudelSession({
+        onError: (...args) => send('onError', args),
+        onHighlight: (docId, phase, haps) => highlightMiniLocations(editorViews.get(docId), phase, haps),
+        onUpdateMiniLocations: (docId, miniLocations) => updateMiniLocations(editorViews.get(docId), miniLocations),
+      });
+
+      window.parent.strudel = strudel;
+      window.parent.strudelWindow = window;
+      window.parent.sounds = () => strudel.printSounds();
+      console.log('[strudel] waiting for document click to init');
+      window.parent.document.addEventListener('click', async function interaction() {
+        window.parent.document.removeEventListener('click', interaction);
+        await strudel.initAudio();
+        console.log('[strudel] audio init done');
+      });
+
+      window.addEventListener('message', (event) => {
+        if (event.origin !== window.location.origin) {
+          return;
+        }
+        // console.log("received", event.data);
+        if (event.data.type === 'eval') {
+          strudel.eval(event.data.msg).catch((err) => strudel.onError(err));
+        }
+      });
+
+      console.log('strudel iframe loaded' /* , strudel */);
+    </script>
+  </body>
+</html>

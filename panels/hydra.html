@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script src="/assets/std.js"></script>
+  </head>
+  <body style="margin: 0">
+    <style>
+      #canvas {
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+      }
+    </style>
+    <script>
+      window.global = window;
+    </script>
+    <script type="module">
+      // this is expected to run in an iframe
+      // this way, hydra runs in an iframe
+      // so it wont mess with the global scope
+      // + we can sandbox the evaluation
+      // the js here is only for plumbing postMessages
+      // + creating the hydra session
+
+      import p5 from 'p5';
+      import { HydraSession } from '/src/hydra';
+      
+      // Initialize P5 wrapper
+      window.P5 = class extends p5 {
+        constructor({
+          width = window.innerWidth,
+          height = window.innerHeight,
+          mode = 'P2D'
+        } = {}) {
+          super((p) => {
+            p.setup = () => { 
+              p.createCanvas(width, height, p[mode]);
+            };
+            p.draw = () => { };
+          }, 'hydra-ui');
+          
+          this.width = width;
+          this.height = height;
+          this.mode = mode;
+          this.canvas.style.position = "absolute";
+          this.canvas.style.top = "0px";
+          this.canvas.style.left = "0px";
+          this.canvas.style.zIndex = -1;
+        }
+
+        show() {
+          this.canvas.style.visibility = "visible";
+        }
+
+        hide() {
+          this.canvas.style.visibility = "hidden";
+        }
+
+        clear() {
+          this.drawingContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+      };
+
+      function send(type, msg) {
+        window.parent.postMessage({ type, msg });
+      }
+
+      const hydra = new HydraSession({
+        onError: (...args) => send('onError', args),
+        canvas: document.getElementById('canvas'),
+        onHighlight: (...args) => {
+          send('onHighlight', [docId, phase]);
+        },
+      });
+
+      window.parent.hydra = hydra;
+
+      window.addEventListener('message', (event) => {
+        if (event.origin !== window.location.origin) {
+          return;
+        }
+        if (event.data.type === 'eval') {
+          hydra.eval(event.data.msg);
+        }
+      });
+
+      let resizeDebounce;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeDebounce);
+        resizeDebounce = setTimeout(() => hydra.resize(), 200);
+      });
+    </script>
+    <canvas id="canvas" class="hydra-canvas"></canvas>
+  </body>
+</html>
