@@ -34,7 +34,7 @@ export class PastaMirror {
   editorViews = new Map();
   currentEditors = new Map();
   extensions = {
-    lineWrapping: (on) => (on ? EditorView.lineWrapping : []),
+    lineWrapping: (on) => (on ? EditorView.lineWrapping : EditorView.lineWrapping),
     lineNumbers: (on) => (on ? lineNumbers() : []),
     closeBrackets: (on) => (on ? closeBrackets() : []),
     strudelAutocomplete: (on) =>
@@ -122,25 +122,25 @@ export class PastaMirror {
                     from -= 1;
                   }
                   backspaceWasPressed = true;
-                  sendChatMessage({
-                    docId: doc.id,
-                    message: char,
-                    from,
-                    user: doc.session.user,
-                    color: doc.session.userColor.color,
-                  });
+                  // sendChatMessage({
+                  //   docId: doc.id,
+                  //   message: char,
+                  //   from,
+                  //   user: doc.session.user,
+                  //   color: doc.session.userColor.color,
+                  // });
 
                   return false;
                 }
 
                 const message = view.state.sliceDoc(from, to).trim();
-                sendChatMessage({
-                  docId: doc.id,
-                  message,
-                  from,
-                  user: doc.session.user,
-                  color: doc.session.userColor.color,
-                });
+                // sendChatMessage({
+                //   docId: doc.id,
+                //   message,
+                //   from,
+                //   user: doc.session.user,
+                //   color: doc.session.userColor.color,
+                // });
 
                 return false;
               },
@@ -167,13 +167,13 @@ export class PastaMirror {
                 to = Math.min(to, view.state.doc.length);
                 const message = view.state.sliceDoc(from, to).trim();
 
-                sendChatMessage({
-                  docId: doc.id,
-                  message,
-                  from,
-                  user: doc.session.user,
-                  color: doc.session.userColor.color,
-                });
+                // sendChatMessage({
+                //   docId: doc.id,
+                //   message,
+                //   from,
+                //   user: doc.session.user,
+                //   color: doc.session.userColor.color,
+                // });
 
                 if (key === 'Shift-Enter') {
                   const transaction = view.state.update({

@@ -51,7 +51,7 @@ const defaultSettings = {
   zenMode: false,
   panelMode: 'scroll', // "scroll" | "boxed" | |tabbed
   vimMode: false,
-  lineWrapping: false,
+  lineWrapping: true,
   lineNumbers: false,
   strudelAutocomplete: false,
   closeBrackets: true,
