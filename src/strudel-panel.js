@@ -267,6 +267,10 @@ export class StrudelSession {
     function spagda(){ throw Error('no samples today'); };
   `;
 
+  static scopeInjection = `
+    all(x=>x.scope());
+  `;
+
   // static syncedCpmInjection = ``;
 
   // TODO: make this apply to all panes, not just the current one
@@ -292,6 +296,8 @@ export class StrudelSession {
     // if (window.parent.getWeather().noSamples) {
     //   injection += StrudelSession.noSamplesInjection;
     // }
+
+    injection += StrudelSession.scopeInjection;
 
     // injection += StrudelSession.syncedCpmInjection;
     injection += `\nsilence;`;

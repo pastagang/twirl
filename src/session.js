@@ -3,6 +3,7 @@ import { pastamirror, Frame } from './main.js';
 import { clearGlobalError, setError, clearLocalError } from './error.js';
 import { getSettings, getUserColorFromUserHue } from './settings.js';
 import { subscribeToChat, unsubscribeFromChat } from './chat.js';
+import { StrudelSession } from './strudel-panel.js';
 // @ts-ignore
 // import { PASTAGANG_ROOM_NAME } from 'https://www.pastagang.cc/pastagang.js';
 const PASTAGANG_ROOM_NAME = 'twirlgang';
@@ -66,6 +67,7 @@ function makeSession() {
     });
 
     const doc = lowestIdDoc;
+    window['doc'] = doc;
     if (doc.target !== 'strudel') {
       doc.target = 'strudel';
     }
@@ -113,6 +115,7 @@ function makeSession() {
   session.on('eval:shader', (msg) => Frame.shader?.contentWindow.postMessage({ type: 'eval', msg }));
   // strudel
   session.on('eval:strudel', (msg) => {
+    console.log(msg);
     return Frame.strudel?.contentWindow.postMessage({ type: 'eval', msg });
   });
   // kabelsalat
@@ -122,6 +125,20 @@ function makeSession() {
   session.on('eval', (msg) => clearLocalError(msg.docId));
 
   session.initialize();
+
+  setTimeout(() => {
+    Frame.strudel?.contentWindow.postMessage({
+      type: 'eval',
+      msg: {
+        body: StrudelSession.scopeInjection,
+        from: 0,
+        to: 0,
+        docId: window['doc'].id,
+        target: 'strudel',
+        mode: 'web',
+      },
+    });
+  }, 1000);
 
   const settings = getSettings();
   session.user = getUserName();
