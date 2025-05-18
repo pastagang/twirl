@@ -250,12 +250,6 @@ export class PastaMirror {
     slotsEl.insertAdjacentHTML(
       'beforeend',
       `<div class="slot ${side}" id="slot-${doc.id}">
-      <header>
-        <select class="target">
-          ${this.supportedTargets.map((target) => `<option value="${target}">${target}</option>`).join('\n')}
-        </select>
-        <button class="run">▶run</button>
-      </header>
     <div class="editor"></div>
   </div>`,
     );
@@ -291,26 +285,26 @@ export class PastaMirror {
     this.editorViews.set(doc.id, view);
 
     // jsdoc to say its a select element
-    const targetEl = document.querySelector(`#slot-${doc.id} .target`);
-    if (!targetEl) throw new Error('target element not found');
-    if (!this.supportedTargets.includes(doc.target)) {
-      targetEl.insertAdjacentHTML('beforeend', `<option value="${doc.target}">? ${doc.target} ?</option>`);
-      console.warn(`unsupported target "${doc.target}" in doc "${doc.id}". evaluations will be ignored`);
-    }
-    targetEl.value = doc.target;
+    // const targetEl = document.querySelector(`#slot-${doc.id} .target`);
+    // if (!targetEl) throw new Error('target element not found');
+    // if (!this.supportedTargets.includes(doc.target)) {
+    //   targetEl.insertAdjacentHTML('beforeend', `<option value="${doc.target}">? ${doc.target} ?</option>`);
+    //   console.warn(`unsupported target "${doc.target}" in doc "${doc.id}". evaluations will be ignored`);
+    // }
+    // targetEl.value = doc.target;
 
-    targetEl.addEventListener('change', (e) => {
-      doc.target = e.target?.['value'];
-    });
-    doc.session.on(`change-target:${doc.id}`, () => {
-      targetEl.value = doc.target;
-    });
+    // targetEl.addEventListener('change', (e) => {
+    //   doc.target = e.target?.['value'];
+    // });
+    // doc.session.on(`change-target:${doc.id}`, () => {
+    //   targetEl.value = doc.target;
+    // });
 
-    const runButton = document.querySelector(`#slot-${doc.id} .run`);
-    if (!runButton) throw new Error('run button not found');
-    runButton.addEventListener('click', () => {
-      doc.evaluate(doc.content, { from: 0, to: doc.content.length });
-    });
+    // const runButton = document.querySelector(`#slot-${doc.id} .run`);
+    // if (!runButton) throw new Error('run button not found');
+    // runButton.addEventListener('click', () => {
+    //   doc.evaluate(doc.content, { from: 0, to: doc.content.length });
+    // });
 
     this.currentEditors.set(doc.id, { state, doc, view });
   }

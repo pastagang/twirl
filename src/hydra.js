@@ -245,7 +245,7 @@ export class HydraSession {
     }
 
     this.initialized = true;
-    console.log('Hydra initialized');
+    // console.log('Hydra initialized');
   }
 
   async eval(msg, conversational = false) {

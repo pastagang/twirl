@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
   </head>
   <body>
     <script type="module">
@@ -27,12 +27,12 @@
       window.kabeltrig = (id) => kabelgate(id).trig();
       window.kabelvalue = (id) => cc(`kabelvalue-${id}`);
 
-      console.log('[kabelsalat] waiting for document click to init');
+      // console.log('[kabelsalat] waiting for document click to init');
       window.parent.document.addEventListener('click', async function interaction() {
         window.parent.document.removeEventListener('click', interaction);
         try {
           await kabelsalat.audio.init();
-          console.log('[kabelsalat] audio init done');
+          // console.log('[kabelsalat] audio init done');
         } catch (err) {
           console.error(`could not init kabelsalat: ${err.message}`);
           console.dir(err);
@@ -149,7 +149,7 @@
           }
         }
       });
-      console.log('kabelsalat iframe loaded' /* , kabelsalat */);
+      // console.log('kabelsalat iframe loaded' /* , kabelsalat */);
     </script>
   </body>
 </html>

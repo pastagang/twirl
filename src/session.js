@@ -49,9 +49,9 @@ function makeSession() {
     const documents = session.getDocuments();
     if (documents.length === 0) {
       session.setActiveDocuments([{ id: '1', target: 'strudel' }]);
-      session.setActiveDocuments([{ id: '2', target: 'strudel' }]);
-      session.setActiveDocuments([{ id: '3', target: 'strudel' }]);
-      session.setActiveDocuments([{ id: '4', target: 'strudel' }]);
+      // session.setActiveDocuments([{ id: '2', target: 'strudel' }]);
+      // session.setActiveDocuments([{ id: '3', target: 'strudel' }]);
+      // session.setActiveDocuments([{ id: '4', target: 'strudel' }]);
     }
 
     // const playButton = document.getElementById('about-yes-button');
@@ -67,6 +67,10 @@ function makeSession() {
     });
 
     const doc = lowestIdDoc;
+    if (doc.target !== 'strudel') {
+      doc.target = 'strudel';
+    }
+    // doc.target = 'strudel';
     // documents.map((doc) => {
     if (!pastamirror.currentEditors.has(doc.id)) {
       pastamirror.createEditor(doc);

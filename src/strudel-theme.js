@@ -22,7 +22,7 @@ let colors = {
 };
 
 const color = getColorFromUserHue();
-console.log('color', color);
+// console.log('color', color);
 let theme = EditorView.theme(
   {
     '&': {

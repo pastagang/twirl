@@ -29,11 +29,11 @@
       window.parent.strudel = strudel;
       window.parent.strudelWindow = window;
       window.parent.sounds = () => strudel.printSounds();
-      console.log('[strudel] waiting for document click to init');
+      // console.log('[strudel] waiting for document click to init');
       window.parent.document.addEventListener('click', async function interaction() {
         window.parent.document.removeEventListener('click', interaction);
         await strudel.initAudio();
-        console.log('[strudel] audio init done');
+        // console.log('[strudel] audio init done');
       });
 
       window.addEventListener('message', (event) => {
@@ -46,7 +46,7 @@
         }
       });
 
-      console.log('strudel iframe loaded' /* , strudel */);
+      // console.log('strudel iframe loaded' /* , strudel */);
     </script>
   </body>
 </html>
