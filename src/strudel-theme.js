@@ -21,15 +21,13 @@ let colors = {
   stone500: '#78716c',
 };
 
-const color = getColorFromUserHue();
-// console.log('color', color);
 let theme = EditorView.theme(
   {
     '&': {
-      color: colors.teal600,
+      color: 'white',
       overflow: 'hidden',
-      backgroundColor: 'transparent',
-      fontSize: '16px',
+      backgroundColor: '#171d28',
+      fontSize: '30px',
       height: '100%',
     },
     '.cm-gutters': {
@@ -45,10 +43,13 @@ let theme = EditorView.theme(
       // i had to fork again because the scrollIntoView was messing with the global scroll
     },
     '.cm-activeLine, .cm-activeLineGutter, .cm-line': {
-      'background-color': 'rgba(0,0,0,.7) !important',
+      // 'background-color': 'rgba(0,0,0,.7) !important',
     },
     '.cm-selectionBackground': {
-      'background-color': 'rgba(255,255,255,.7) !important',
+      'background-color': getColorFromUserHue(undefined, 0.5) + ' !important',
+    },
+    '.cm-selection': {
+      color: '#171d28 !important',
     },
     '.cm-cursorLayer': {
       'animation-name': 'inherit !important;', // disables blinking
@@ -62,7 +63,7 @@ let theme = EditorView.theme(
     '.cm-ySelectionInfo': {
       opacity: '1',
       fontFamily: 'monospace',
-      color: 'black',
+      color: '#171d28',
       padding: '2px 2px',
       fontSize: '0.8rem',
       //"font-weight": "bold",

@@ -218,9 +218,9 @@ export class HydraSession {
      * This whole block is only to work around problems in the rendering pipeline of hydra like this:
      * https://github.com/hydra-synth/hydra-synth/issues/150
      * It will stop hydra, and re-init it.
-     * It will cause a black canvas immediatly, once the problem is fixed, hydra will work again
+     * It will cause a #171d28 canvas immediatly, once the problem is fixed, hydra will work again
      *
-     * Idealy we would not cause black screens, but could somehow ignore the problematic code, but
+     * Idealy we would not cause #171d28 screens, but could somehow ignore the problematic code, but
      * that might be a problem Hydra needs to tackle
      */
     const self = this;

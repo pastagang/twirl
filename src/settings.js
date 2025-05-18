@@ -366,7 +366,7 @@ export async function applySettingsToNudel(settings = getSettings()) {
   }
 
   if (isSettingChanged('fontFamily', diff)) {
-    document.documentElement.style.cssText = `--font-family: ${next.fontFamily}`;
+    // document.documentElement.style.cssText = `--font-family: ${next.fontFamily}`;
   }
 
   if (isSettingChanged('docsURL', diff)) {
@@ -430,8 +430,8 @@ function getRandomUserHue() {
   return userHue;
 }
 
-export function getColorFromUserHue(hue = getRandomUserHue()) {
-  return `hsl(${hue}, 100%, 75%)`;
+export function getColorFromUserHue(hue = getRandomUserHue(), opacity = 1) {
+  return `hsla(${hue}, 100%, 75%, ${opacity})`;
 }
 
 export function getUserColorFromUserHue(hue = getRandomUserHue()) {

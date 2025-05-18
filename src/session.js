@@ -61,7 +61,6 @@ function makeSession() {
   });
 
   session.on('change', (documents) => {
-    console.log(documents);
     const lowestIdDoc = documents.reduce((prev, current) => {
       return prev.id < current.id ? prev : current;
     });

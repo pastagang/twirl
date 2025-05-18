@@ -65,7 +65,7 @@ export class PastaMirror {
         minimalSetup,
         theme,
         this.flokBasicSetup(doc),
-        javascript(),
+        // javascript(),
         getSettings().vimMode ? vim() : [],
         // bracketMatching({ brackets: '()[]{}<>' }),
         ...initialSettings,
