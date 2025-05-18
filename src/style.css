@@ -4,22 +4,22 @@
 
 @font-face {
   font-family: Rosario-Bold;
-  src: url('fonts/Rosario-Bold.ttf');
+  src: url('/fonts/Rosario-Bold.ttf');
 }
 
 @font-face {
   font-family: Rosario-Regular;
-  src: url('fonts/Rosario-Regular.ttf');
+  src: url('/fonts/Rosario-Regular.ttf');
 }
 
 @font-face {
   font-family: Rosario-Italic;
-  src: url('fonts/Rosario-Italic.ttf');
+  src: url('/fonts/Rosario-Italic.ttf');
 }
 
 @font-face {
   font-family: Rosario-BoldItalic;
-  src: url('fonts/Rosario-BoldItalic.ttf');
+  src: url('/fonts/Rosario-BoldItalic.ttf');
 }
 
 html {
