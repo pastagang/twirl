@@ -185,6 +185,7 @@ body {
     color: tomato;
     position: sticky;
     bottom: 0;
+    display: none;
   }
 
   .error-inline {
@@ -198,6 +199,7 @@ body {
 }
 
 #global-error {
+  display: none;
   background-color: #171d28;
   font-family: monospace;
   padding: 8px;
