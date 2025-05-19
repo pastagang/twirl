@@ -34,7 +34,7 @@ export class PastaMirror {
   editorViews = new Map();
   currentEditors = new Map();
   extensions = {
-    lineWrapping: (on) => (on ? EditorView.lineWrapping : EditorView.lineWrapping),
+    // lineWrapping: (on) => (on ? EditorView.lineWrapping : EditorView.lineWrapping),
     lineNumbers: (on) => (on ? lineNumbers() : []),
     closeBrackets: (on) => (on ? closeBrackets() : []),
     strudelAutocomplete: (on) =>
