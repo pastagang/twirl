@@ -27,7 +27,7 @@ let theme = EditorView.theme(
       color: 'white',
       overflow: 'hidden',
       backgroundColor: '#171d28',
-      fontSize: '30px',
+      fontSize: '50px',
       height: '100%',
     },
     '.cm-gutters': {
@@ -35,7 +35,7 @@ let theme = EditorView.theme(
       color: colors.stone500,
     },
     '.cm-cursor': {
-      borderWidth: '2px',
+      borderWidth: '5px',
       // outline: `2px solid ${getColorFromUserHue()}`,
       'border-left-color': getColorFromUserHue(),
       // the regular cursor is hidden, because we're showing a nametag..
