@@ -16,6 +16,7 @@ import { nudelAlert } from './alert.js';
 import { strudelAutocomplete } from './strudel-autocomplete.js';
 import { sendChatMessage } from './chat.js';
 import { msnPlugin } from './msn/plugin.js';
+import { focus } from '@strudel/core';
 
 // we need to access these variables from the strudel iframe:
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
@@ -244,6 +245,10 @@ export class PastaMirror {
 
     const slotsEl = document.querySelector('.slots');
     if (!slotsEl) throw new Error('slots element not found');
+
+    slotsEl.addEventListener('pointerdown', (e) => {
+      this.editorViews.get(doc.id)?.focus();
+    });
 
     const side = parseInt(doc.id) % 2 == 0 ? 'right' : 'left';
 
