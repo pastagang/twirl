@@ -704,3 +704,9 @@ input:disabled {
 .cm-ySelectionInfo {
   display: none !important;
 }
+
+/* Center align the lines of the codemirror editor */
+.cm-line {
+  margin: 0 auto;
+  text-align: center;
+}
