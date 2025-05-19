@@ -36,6 +36,7 @@ let theme = EditorView.theme(
     },
     '.cm-cursor': {
       borderWidth: '5px',
+      // animation: 'float 5s ease-in-out infinite',
       // outline: `2px solid ${getColorFromUserHue()}`,
       'border-left-color': getColorFromUserHue(),
       // the regular cursor is hidden, because we're showing a nametag..

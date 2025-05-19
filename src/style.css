@@ -623,6 +623,8 @@ footer h3 {
 
 .cm-ySelectionCaret {
   pointer-events: none;
+  border-width: 2.5px !important;
+  /* animation: float 5s infinite; */
 }
 
 * {
@@ -709,4 +711,17 @@ input:disabled {
 .cm-line {
   margin: 0 auto;
   text-align: center;
+}
+
+/* Animation for floating up and down */
+@keyframes float {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(5px);
+  }
 }
