@@ -268,7 +268,10 @@ export class StrudelSession {
   `;
 
   static scopeInjection = `
-    all(x=>x.scope());
+    all(x=>x.scope({
+      pos: 0.5,
+      thickness: 3 * devicePixelRatio,
+    }));
   `;
 
   // static syncedCpmInjection = ``;
