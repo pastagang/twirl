@@ -247,7 +247,7 @@ export class PastaMirror {
     if (!slotsEl) throw new Error('slots element not found');
 
     slotsEl.addEventListener('pointerdown', (e) => {
-      this.editorViews.get(doc.id)?.focus();
+      //this.editorViews.get(doc.id)?.focus();
     });
 
     const side = parseInt(doc.id) % 2 == 0 ? 'right' : 'left';
