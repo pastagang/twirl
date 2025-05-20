@@ -55,6 +55,13 @@ function makeSession() {
       // session.setActiveDocuments([{ id: '4', target: 'strudel' }]);
     }
 
+    const lowestIdDoc = documents.reduce((prev, current) => {
+      return prev.id < current.id ? prev : current;
+    });
+
+    const doc = lowestIdDoc;
+    window['doc'] = doc;
+
     // const playButton = document.getElementById('about-yes-button');
     // if (playButton) {
     //   playButton.classList.remove('loading');
@@ -89,6 +96,20 @@ function makeSession() {
     if (deletedSomething) {
       session.setActiveDocuments([doc]);
     }
+
+    setTimeout(() => {
+      Frame.strudel?.contentWindow.postMessage({
+        type: 'eval',
+        msg: {
+          body: window['doc'].getText() + StrudelSession.scopeInjection,
+          from: 0,
+          to: 0,
+          docId: window['doc'].id,
+          target: 'strudel',
+          mode: 'web',
+        },
+      });
+    }, 1000);
   });
 
   session.on('pubsub:open', () => {
@@ -126,19 +147,7 @@ function makeSession() {
 
   session.initialize();
 
-  setTimeout(() => {
-    Frame.strudel?.contentWindow.postMessage({
-      type: 'eval',
-      msg: {
-        body: StrudelSession.scopeInjection,
-        from: 0,
-        to: 0,
-        docId: window['doc'].id,
-        target: 'strudel',
-        mode: 'web',
-      },
-    });
-  }, 1000);
+  // console.log(Frame.strudel);
 
   const settings = getSettings();
   session.user = getUserName();

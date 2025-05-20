@@ -7,10 +7,10 @@ import { showSongText } from './song.js';
 export const pastamirror = new PastaMirror();
 
 export const Frame = {
-  hydra: document.getElementById('hydra'),
-  shader: document.getElementById('shader'),
-  strudel: document.getElementById('strudel'),
-  kabesalat: document.getElementById('kabelsalat'),
+  hydra: document.querySelector('#hydra'),
+  shader: document.querySelector('#shader'),
+  strudel: document.querySelector('#strudel'),
+  kabesalat: document.querySelector('#kabelsalat'),
 };
 
 window.editorViews = pastamirror.editorViews;

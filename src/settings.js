@@ -170,6 +170,14 @@ function addFrame(key) {
   Frame[key].sandbox = 'allow-scripts allow-same-origin';
   Frame[key].setAttribute('scrolling', 'no');
   document.body.appendChild(Frame[key]);
+
+  // Fire a 'frame-added' event
+  const event = new CustomEvent('frame-added', {
+    detail: {
+      frame: Frame[key],
+    },
+  });
+  document.dispatchEvent(event);
 }
 
 function removeFrame(key) {
