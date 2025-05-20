@@ -66,7 +66,7 @@ export class PastaMirror {
         minimalSetup,
         theme,
         this.flokBasicSetup(doc),
-        // javascript(),
+        javascript(),
         getSettings().vimMode ? vim() : [],
         // bracketMatching({ brackets: '()[]{}<>' }),
         ...initialSettings,
@@ -325,7 +325,7 @@ export class PastaMirror {
     const scrollIntoView = getSettings().trackRemoteCursors2;
     const collab = yCollab(text, doc.session.awareness);
     return [
-      // flashField(),
+      flashField(),
       highlightExtension,
       remoteEvalFlash(doc),
       Prec.high(evalKeymap(doc, { web, defaultMode: 'document' })),

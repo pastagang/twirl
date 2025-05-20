@@ -115,7 +115,7 @@ function makeSession() {
   session.on('eval:shader', (msg) => Frame.shader?.contentWindow.postMessage({ type: 'eval', msg }));
   // strudel
   session.on('eval:strudel', (msg) => {
-    console.log(msg);
+    // console.log(msg);
     return Frame.strudel?.contentWindow.postMessage({ type: 'eval', msg });
   });
   // kabelsalat
