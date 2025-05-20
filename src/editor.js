@@ -68,7 +68,7 @@ export class PastaMirror {
         this.flokBasicSetup(doc),
         javascript(),
         getSettings().vimMode ? vim() : [],
-        // bracketMatching({ brackets: '()[]{}<>' }),
+        bracketMatching({ brackets: '()[]{}<>' }),
         ...initialSettings,
         Prec.highest(
           keymap.of([
