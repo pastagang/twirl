@@ -270,7 +270,7 @@ export class StrudelSession {
   // static scopeInjection = ``;
   static scopeInjection = `
     all(x=>x.scope({
-      pos: 0.6,
+      // pos: 0.,
       thickness: 3 * devicePixelRatio,
     }));
   `;
