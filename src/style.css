@@ -51,9 +51,9 @@ body {
 }
 
 @media screen and (max-width: 750px) {
-  .slots {
+  /* .slots {
     grid-template-columns: minmax(0, 1fr);
-  }
+  } */
   .cm-scoller {
     overflow: hidden;
   }
@@ -91,13 +91,13 @@ body {
       }
     }
 
-    .slots {
+    /* .slots {
       display: grid;
       grid-template-areas: 'left right';
       grid-template-columns: 50% 50%;
       height: calc(100vh - 24px);
       gap: 0;
-    }
+    } */
 
     .slot.left {
       grid-area: left;
@@ -132,11 +132,11 @@ body {
     overflow: hidden;
 
     /* boxed layout */
-    .slots {
+    /* .slots {
       flex: 1 1 auto;
       flex-grow: 0;
       overflow: hidden;
-    }
+    } */
 
     .slot {
       overflow: hidden;
@@ -218,6 +218,21 @@ body {
 .editor {
   flex-grow: 1;
   background: transparent;
+  transition: font-size 1s ease-in-out;
+  transform: scale(1);
+  font-size: 30px;
+  transform-origin: top left;
+  overflow: visible !important;
+}
+
+@media screen and (min-width: 700px) {
+  .editor {
+    font-size: 50px;
+  }
+}
+
+.editor * {
+  overflow: visible !important;
 }
 
 .cm-editor {
@@ -251,6 +266,14 @@ body {
   max-width: fit-content;
   padding: 0px !important;
   /* border-radius: 10px; */ /* ok maybe that's too much */
+}
+
+.cm-line > span {
+  /* color: white !important; */
+}
+
+.cm-matchingBracket > span {
+  /* color: white !important; */
 }
 
 .cm-activeLine {
@@ -570,9 +593,9 @@ footer h3 {
   #sidebar-container {
     visibility: visible;
   }
-  .slots {
+  /* .slots {
     padding-left: calc(max(20%, 350px));
-  }
+  } */
   .tabs {
     padding-left: calc(max(20%, 350px));
   }

@@ -27,7 +27,7 @@ let theme = EditorView.theme(
       color: 'white',
       overflow: 'hidden',
       backgroundColor: '#171d28',
-      fontSize: '50px',
+      // fontSize: '50px',
       height: '100%',
     },
     '.cm-gutters': {

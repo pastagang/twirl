@@ -16,7 +16,8 @@ import { nudelAlert } from './alert.js';
 import { strudelAutocomplete } from './strudel-autocomplete.js';
 import { sendChatMessage } from './chat.js';
 import { msnPlugin } from './msn/plugin.js';
-import { focus } from '@strudel/core';
+import { div, focus, id } from '@strudel/core';
+import { scale } from '@strudel/tonal';
 
 // we need to access these variables from the strudel iframe:
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
@@ -30,13 +31,40 @@ addEventListener('keyup', (e) => {
   }
 });
 
+// let fontSize = 50;
+
+// function tickFontSize() {
+//   const elem = window['elem'];
+//   const view = window['view'];
+//   if (!elem || !view) {
+//     setTimeout(tickFontSize, 1000);
+//     return;
+//   }
+
+//   const { width, height } = view.contentDOM.getBoundingClientRect();
+//   let scale = window.innerWidth / width;
+//   if (scale > 1.03) {
+//     scale *= 1.5;
+//   } else if (scale < 0.9) {
+//     scale /= 1.5;
+//   } else {
+//     scale = 1;
+//   }
+//   fontSize = scale * fontSize;
+//   elem.style.fontSize = `${fontSize}px`;
+//   console.log('tickFontSize', fontSize);
+
+//   setTimeout(tickFontSize, 1000);
+// }
+// tickFontSize();
+
 export class PastaMirror {
   supportedTargets = ['strudel', 'hydra', 'shader', 'kabelsalat', 'js'];
   editorViews = new Map();
   currentEditors = new Map();
   extensions = {
     lineWrapping: (on) => (on ? EditorView.lineWrapping : EditorView.lineWrapping),
-    // lineNumbers: (on) => (on ? lineNumbers() : []),
+    lineNumbers: (on) => (on ? lineNumbers() : []),
     closeBrackets: (on) => (on ? closeBrackets() : []),
     strudelAutocomplete: (on) =>
       on ? autocompletion({ override: [strudelAutocomplete] }) : autocompletion({ override: [] }),
@@ -68,8 +96,26 @@ export class PastaMirror {
         this.flokBasicSetup(doc),
         javascript(),
         getSettings().vimMode ? vim() : [],
+        // on input event
+        // EditorView.updateListener.of((update) => {
+        //   const changes = update.changes;
+        //   if (changes.empty) return;
+        //   const view = window['view'];
+        //   if (!view) return;
+
+        //   // Get width and height of the editor
+        //   const { width, height } = view.contentDOM.getBoundingClientRect();
+        //   console.log('editor size', width, height);
+
+        //   const elem = window['elem'];
+        //   const scale = window.innerWidth / width;
+        //   // elem.style.transform = `scale(${scale})`;
+        //   elem.style.fontSize = `${scale * 50}px`;
+        // }),
+        // bracket matching
         bracketMatching({ brackets: '()[]{}<>' }),
         ...initialSettings,
+
         Prec.highest(
           keymap.of([
             // Disable Undo/Redo
@@ -288,6 +334,9 @@ export class PastaMirror {
       parent: editorEl,
     });
     this.editorViews.set(doc.id, view);
+
+    window['elem'] = editorEl;
+    window['view'] = view;
 
     // jsdoc to say its a select element
     // const targetEl = document.querySelector(`#slot-${doc.id} .target`);
