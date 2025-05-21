@@ -267,13 +267,13 @@ export class StrudelSession {
     function spagda(){ throw Error('no samples today'); };
   `;
 
-  static scopeInjection = ``;
-  // static scopeInjection = `
-  //   all(x=>x.scope({
-  //     pos: 0.6,
-  //     thickness: 3,
-  //   }));
-  // `;
+  // static scopeInjection = ``;
+  static scopeInjection = `
+    all(x=>x.scope({
+      pos: 0.6,
+      thickness: 3 * devicePixelRatio,
+    }));
+  `;
 
   // static syncedCpmInjection = ``;
 

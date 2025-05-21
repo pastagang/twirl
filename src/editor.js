@@ -58,6 +58,24 @@ addEventListener('keyup', (e) => {
 // }
 // tickFontSize();
 
+let fontSize = 50;
+addEventListener(
+  'keydown',
+  (e) => {
+    const elem = window['elem'];
+    if (e.key === '=' && (e.ctrlKey || e.metaKey)) {
+      fontSize *= 1.5;
+      elem.style.fontSize = fontSize + 'px';
+      e.preventDefault();
+    } else if (e.key === '-' && (e.ctrlKey || e.metaKey)) {
+      fontSize /= 1.5;
+      if (fontSize) elem.style.fontSize = fontSize + 'px';
+      e.preventDefault();
+    }
+  },
+  { passive: false },
+);
+
 export class PastaMirror {
   supportedTargets = ['strudel', 'hydra', 'shader', 'kabelsalat', 'js'];
   editorViews = new Map();
