@@ -101,7 +101,7 @@ function makeSession() {
       Frame.strudel?.contentWindow.postMessage({
         type: 'eval',
         msg: {
-          body: window['doc'].getText() + StrudelSession.scopeInjection,
+          body: StrudelSession.scopeInjection,
           from: 0,
           to: 0,
           docId: window['doc'].id,

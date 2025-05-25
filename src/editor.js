@@ -23,6 +23,19 @@ import { scale } from '@strudel/tonal';
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
 window.updateMiniLocations = updateMiniLocations; // we cannot import this for some reason
 
+const SLIDES = [
+  'My name is Lu',
+  'I am not dead',
+  'I am not dead yet',
+  'But one day I will be',
+  'For now I am alive',
+  'Which means',
+  'I can be here',
+  'Live',
+  'Speaking to you now',
+  'Live',
+];
+
 // Gets around an issue with chat positioning
 let backspaceWasPressed = false;
 addEventListener('keyup', (e) => {
@@ -30,6 +43,41 @@ addEventListener('keyup', (e) => {
     backspaceWasPressed = false;
   }
 });
+
+let slideId = parseInt(localStorage.getItem('twirl_slide_number') ?? '0');
+if (isNaN(slideId)) {
+  slideId = 0;
+  localStorage.setItem('twirl_slide_number', '0');
+}
+console.log('id', slideId);
+function setSlide(id) {
+  slideId = id;
+  if (slideId >= SLIDES.length) {
+    slideId = SLIDES.length - 1;
+  } else if (slideId < 0) {
+    slideId = 0;
+  }
+  localStorage.setItem('twirl_slide_number', id);
+  const editor = window['view'];
+  editor.dispatch({ changes: { from: 0, to: editor.state.doc.length, insert: SLIDES[slideId] } });
+}
+
+addEventListener(
+  'keydown',
+  (e) => {
+    if (e.key === '.' && (e.ctrlKey || e.metaKey)) {
+      setSlide(slideId + 1);
+      e.preventDefault();
+      return;
+    }
+
+    if (e.key === ',' && (e.ctrlKey || e.metaKey)) {
+      setSlide(slideId - 1);
+      e.preventDefault();
+    }
+  },
+  { passive: false },
+);
 
 // let fontSize = 50;
 
@@ -92,6 +140,7 @@ export class PastaMirror {
 
   constructor() {
     this.compartments = Object.fromEntries(Object.keys(this.extensions).map((key) => [key, new Compartment()]));
+    window['editor'] = this;
   }
 
   createEditor(doc) {
