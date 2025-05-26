@@ -270,9 +270,12 @@ export class StrudelSession {
   // static scopeInjection = ``;
   static scopeInjection = `
     all(x=>x.scope({
-      // pos: 0.,
+      pos: 0.56,
       thickness: 3 * devicePixelRatio,
     }));
+    samples('github:mot4i/garden');
+    samples('github:eddyflux/crate');
+    samples('github:yaxu/clean-breaks');
   `;
 
   // static syncedCpmInjection = ``;

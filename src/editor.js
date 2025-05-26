@@ -14,10 +14,6 @@ import { getSettings } from './settings.js';
 import { insertNewline } from '@codemirror/commands';
 import { nudelAlert } from './alert.js';
 import { strudelAutocomplete } from './strudel-autocomplete.js';
-import { sendChatMessage } from './chat.js';
-import { msnPlugin } from './msn/plugin.js';
-import { div, focus, id } from '@strudel/core';
-import { scale } from '@strudel/tonal';
 
 // we need to access these variables from the strudel iframe:
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
@@ -34,6 +30,22 @@ const SLIDES = [
   'Live',
   'Speaking to you now',
   'Live',
+  'Right now',
+  'Which means',
+  'Anything can happen',
+  // 'Except...',
+  // "That's not really true, is it?",
+  // 'I mean',
+  // "Sure, I'm standing here",
+  // 'Live',
+  // 'Right now',
+  // "But I'm giving you",
+  // 'A highly rehearsed',
+  // 'Pre-scripted talk',
+  // "This doesn't feel live to me",
+  // 'This may as well be a recording',
+  // 'That you watch',
+  // 'Two weeks from now',
 ];
 
 // Gets around an issue with chat positioning
@@ -59,19 +71,31 @@ function setSlide(id) {
   }
   localStorage.setItem('twirl_slide_number', id);
   const editor = window['view'];
-  editor.dispatch({ changes: { from: 0, to: editor.state.doc.length, insert: SLIDES[slideId] } });
+  editor.dispatch({ changes: { from: 0, to: editor.state.doc.length, insert: SLIDES[slideId].toUpperCase() } });
+  // requestAnimationFrame(() => {
+  // editor.dispatch({ changes: { from: SLIDES[slideId], to: editor.state.doc.length, insert: 'ok' } });
+  // });
 }
+
+let presentationMode = false;
 
 addEventListener(
   'keydown',
   (e) => {
-    if (e.key === '.' && (e.ctrlKey || e.metaKey)) {
+    // toggle presentation mode
+    if (e.key === 'p' && (e.ctrlKey || e.metaKey)) {
+      presentationMode = !presentationMode;
+      e.preventDefault();
+      return;
+    }
+
+    if (presentationMode && e.key === 'ArrowRight') {
       setSlide(slideId + 1);
       e.preventDefault();
       return;
     }
 
-    if (e.key === ',' && (e.ctrlKey || e.metaKey)) {
+    if (presentationMode && e.key === 'ArrowLeft') {
       setSlide(slideId - 1);
       e.preventDefault();
     }
