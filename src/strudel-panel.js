@@ -307,7 +307,8 @@ export class StrudelSession {
     all(x=>x.scope({
       pos: 0.5,
       thickness: 5 * devicePixelRatio,
-      color: '#46ff80',
+      // color: '#46ff80',
+      color: '#40c9ff',
       // color: '${window.parent['getColorFromUserHue']?.()}',
     }));
     samples('github:mot4i/garden');

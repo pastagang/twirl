@@ -435,6 +435,7 @@ function getRandomUserHue() {
   }
   // if localhost
   if (window.location.hostname === 'localhost') {
+    // const hue = 197;
     const hue = 139;
     window.cachedUserHue = hue;
     return hue;
