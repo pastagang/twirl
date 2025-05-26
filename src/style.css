@@ -665,6 +665,7 @@ footer h3 {
 
 .cm-ySelectionCaret {
   pointer-events: none;
+  margin: 0px -2.5px !important;
   border-width: 2.5px !important;
   /* animation: float 5s infinite; */
 }
