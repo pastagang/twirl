@@ -228,6 +228,14 @@ body {
   text-shadow: 2px 2px 0px black;
 }
 
+.cm-line > span {
+  color: white !important;
+}
+
+.cm-line span {
+  color: white !important;
+}
+
 @media screen and (min-width: 700px) {
   .editor {
     font-size: 50px;
