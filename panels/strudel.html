@@ -60,12 +60,12 @@ try {
 }`;
             })
             .join('\n');
-          console.log(safeBody);
+          // console.log(safeBody);
           const safeMsg = {
             ...msg,
             body: safeBody,
           };
-          console.log('strudel eval', safeMsg);
+          // console.log('strudel eval', safeMsg);
           strudel.eval(safeMsg).catch((err) => strudel.onError(err));
           // strudel.eval(event.data.msg).catch((err) => strudel.onError(err));
         }
