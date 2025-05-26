@@ -233,10 +233,14 @@ body {
 
 .cm-line > span {
   color: white !important;
+  background-color: transparent !important;
+  font-style: normal !important;
 }
 
 .cm-line span {
   color: white !important;
+  background-color: transparent !important;
+  font-style: normal !important;
 }
 
 @media screen and (min-width: 700px) {
