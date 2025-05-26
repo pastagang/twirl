@@ -433,14 +433,22 @@ function getRandomUserHue() {
   if (window.cachedUserHue !== undefined) {
     return window.cachedUserHue;
   }
+  // if localhost
+  if (window.location.hostname === 'localhost') {
+    const hue = 139;
+    window.cachedUserHue = hue;
+    return hue;
+  }
   const userHue = Math.floor(Math.random() * 360);
   window.cachedUserHue = userHue;
   return userHue;
 }
 
 export function getColorFromUserHue(hue = getRandomUserHue(), opacity = 1) {
-  return `hsla(${hue}, 100%, 75%, ${opacity})`;
+  return `hsla(${hue}, 100%, 64%, ${opacity})`;
 }
+
+window['getColorFromUserHue'] = getColorFromUserHue;
 
 export function getUserColorFromUserHue(hue = getRandomUserHue()) {
   return {

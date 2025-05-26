@@ -10,10 +10,19 @@ import {
   Pattern,
   fast,
 } from '@strudel/core';
-import { Framer } from '@strudel/draw';
+import { Framer, getDrawContext, getTheme } from '@strudel/draw';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { transpiler } from '@strudel/transpiler';
-import { aliasBank, getAudioContext, initAudio, registerSynthSounds, samples, webaudioOutput } from '@strudel/webaudio';
+import {
+  aliasBank,
+  analysers,
+  drawTimeScope,
+  getAudioContext,
+  initAudio,
+  registerSynthSounds,
+  samples,
+  webaudioOutput,
+} from '@strudel/webaudio';
 import { setInterval, clearInterval } from 'worker-timers';
 import { NudelCyclist } from './strudel-cyclist.js';
 
@@ -30,6 +39,32 @@ window.kabel = register('kabel', (id, pat) => {
     ]);
   });
 });
+
+function clearScreen(smear = 0, smearRGB = `0,0,0`, ctx = getDrawContext()) {
+  if (!smear) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  } else {
+    ctx.fillStyle = `rgba(${smearRGB},${1 - smear})`;
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  }
+}
+
+let latestColor = {};
+/** @ts-expect-error */
+Pattern.prototype.scope = function (config = {}) {
+  let id = config.id ?? 1;
+  /** @ts-expect-error */
+  return this.analyze(id).draw(
+    (haps) => {
+      // console.log('scope', haps);
+      config.color = haps[0]?.value?.color ?? config.color;
+      latestColor[id] = config.color;
+      clearScreen(config.smear, '0,0,0', config.ctx);
+      drawTimeScope(analysers[id], config);
+    },
+    { id },
+  );
+};
 
 export class StrudelSession {
   cps = 0.5;
@@ -268,10 +303,12 @@ export class StrudelSession {
   `;
 
   // static scopeInjection = ``;
-  static scopeInjection = `
+  static getScopeInjection = () => `
     all(x=>x.scope({
-      pos: 0.56,
-      thickness: 3 * devicePixelRatio,
+      pos: 0.5,
+      thickness: 5 * devicePixelRatio,
+      color: '#46ff80',
+      // color: '${window.parent['getColorFromUserHue']?.()}',
     }));
     samples('github:mot4i/garden');
     samples('github:eddyflux/crate');
@@ -304,7 +341,7 @@ export class StrudelSession {
     //   injection += StrudelSession.noSamplesInjection;
     // }
 
-    injection += StrudelSession.scopeInjection;
+    injection += StrudelSession.getScopeInjection();
 
     // injection += StrudelSession.syncedCpmInjection;
     injection += `\nsilence;`;

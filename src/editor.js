@@ -14,38 +14,42 @@ import { getSettings } from './settings.js';
 import { insertNewline } from '@codemirror/commands';
 import { nudelAlert } from './alert.js';
 import { strudelAutocomplete } from './strudel-autocomplete.js';
+import { getDrawContext, getTheme, setTheme } from '@strudel/draw';
+import { drawTimeScope, analysers } from '@strudel/webaudio';
+import { Pattern } from '@strudel/core';
 
 // we need to access these variables from the strudel iframe:
 window.highlightMiniLocations = highlightMiniLocations; // we cannot import this for some reason
 window.updateMiniLocations = updateMiniLocations; // we cannot import this for some reason
 
 const SLIDES = [
-  'My name is Lu',
-  'I am not dead',
-  'I am not dead yet',
-  'But one day I will be',
-  'For now I am alive',
-  'Which means',
-  'I can be here',
-  'Live',
-  'Speaking to you now',
-  'Live',
-  'Right now',
-  'Which means',
-  'Anything can happen',
-  // 'Except...',
-  // "That's not really true, is it?",
-  // 'I mean',
-  // "Sure, I'm standing here",
-  // 'Live',
-  // 'Right now',
-  // "But I'm giving you",
-  // 'A highly rehearsed',
-  // 'Pre-scripted talk',
-  // "This doesn't feel live to me",
-  // 'This may as well be a recording',
-  // 'That you watch',
-  // 'Two weeks from now',
+  'My name is Lu\n',
+  'I am not dead\n',
+  'I am not dead yet\n',
+  'But one day I will be\n',
+  'I am going to die\n',
+  'For now I am alive\n',
+  'Which means\n',
+  'I can be here\n',
+  'Live\n',
+  'Speaking to you now\n',
+  'Live\n',
+  'Right now\n',
+  'Which means\n',
+  'Anything can happen\n',
+  'Except...\n',
+  "That's not really\ntrue, is it?",
+  'I mean sure\n',
+  "I'm standing here\n",
+  'Live\n',
+  'Right now\n',
+  "But I'm giving you\n",
+  'A highly rehearsed\n',
+  'Pre-scripted talk\n',
+  "This doesn't feel live\nto me",
+  'This may as well be\n a recording',
+  'That you watch\n',
+  'Two weeks from now\n',
 ];
 
 // Gets around an issue with chat positioning
@@ -77,7 +81,7 @@ function setSlide(id) {
   // });
 }
 
-let presentationMode = false;
+let presentationMode = localStorage.getItem('twirl_presentation_mode') === 'true';
 
 addEventListener(
   'keydown',
@@ -85,6 +89,7 @@ addEventListener(
     // toggle presentation mode
     if (e.key === 'p' && (e.ctrlKey || e.metaKey)) {
       presentationMode = !presentationMode;
+      localStorage.setItem('twirl_presentation_mode', presentationMode.toString());
       e.preventDefault();
       return;
     }
@@ -145,12 +150,12 @@ addEventListener(
   (e) => {
     const elem = window['elem'];
     if (e.key === '=' && (e.ctrlKey || e.metaKey)) {
-      fontSize *= 1.5;
+      fontSize *= 1.25;
       localStorage.setItem('twirl_font_size', fontSize.toFixed(2));
       elem.style.fontSize = fontSize + 'px';
       e.preventDefault();
     } else if (e.key === '-' && (e.ctrlKey || e.metaKey)) {
-      fontSize /= 1.5;
+      fontSize /= 1.25;
       localStorage.setItem('twirl_font_size', fontSize.toFixed(2));
       elem.style.fontSize = fontSize + 'px';
       e.preventDefault();
@@ -159,6 +164,11 @@ addEventListener(
   { passive: false },
 );
 
+// const oldTheme = getTheme();
+// setTheme({
+//   ...oldTheme,
+//   foreground: 'red',
+// });
 export class PastaMirror {
   supportedTargets = ['strudel', 'hydra', 'shader', 'kabelsalat', 'js'];
   editorViews = new Map();
