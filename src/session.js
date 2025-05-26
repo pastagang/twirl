@@ -6,7 +6,9 @@ import { subscribeToChat, unsubscribeFromChat } from './chat.js';
 import { StrudelSession } from './strudel-panel.js';
 // @ts-ignore
 // import { PASTAGANG_ROOM_NAME } from 'https://www.pastagang.cc/pastagang.js';
-const PASTAGANG_ROOM_NAME = 'twirlgang';
+const urlSearchParams = new URLSearchParams(window.location.search);
+const roomNameFromUrl = urlSearchParams.get('room');
+const PASTAGANG_ROOM_NAME = roomNameFromUrl ?? 'twirlgang';
 
 export function getRoomName() {
   const params = new URLSearchParams(window.location.search);
