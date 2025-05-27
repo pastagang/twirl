@@ -27,7 +27,7 @@ html {
 }
 
 body {
-  background-color: #171d28;
+  background-color: #1e2736;
   color: white;
   margin: 0;
   font-family: monospace;
@@ -228,7 +228,7 @@ body {
   font-size: 30px;
   transform-origin: top left;
   overflow: visible !important;
-  text-shadow: 4px 4px 0px #171d28;
+  text-shadow: 4px 4px 0px #1e2736;
 }
 
 .cm-line > span {
@@ -464,18 +464,18 @@ iframe#kabelsalat {
   pointer-events: none;
   z-index: 999;
   text-shadow:
-    1px 1px 0px #171d28,
-    -1px -1px 0px #171d28,
-    1px -1px 0px #171d28,
-    -1px 1px 0px #171d28;
+    1px 1px 0px #1e2736,
+    -1px -1px 0px #1e2736,
+    1px -1px 0px #1e2736,
+    -1px 1px 0px #1e2736;
 }
 
 footer p {
   text-shadow:
-    1px 1px 0px #171d28,
-    -1px -1px 0px #171d28,
-    1px -1px 0px #171d28,
-    -1px 1px 0px #171d28;
+    1px 1px 0px #1e2736,
+    -1px -1px 0px #1e2736,
+    1px -1px 0px #1e2736,
+    -1px 1px 0px #1e2736;
   text-align: right;
   /* line-height: 1; */
   margin: 2px;
