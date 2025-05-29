@@ -24,7 +24,7 @@ window.updateMiniLocations = updateMiniLocations; // we cannot import this for s
 
 const SLIDES = [
   '',
-  'My name is Lu\n',
+  // 'My name is Lu\n',
   'I am not dead\n',
   'I am not dead yet\n',
   'But one day I will be\n',
