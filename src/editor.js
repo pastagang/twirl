@@ -23,6 +23,7 @@ window.highlightMiniLocations = highlightMiniLocations; // we cannot import this
 window.updateMiniLocations = updateMiniLocations; // we cannot import this for some reason
 
 const SLIDES = [
+  '',
   'My name is Lu\n',
   'I am not dead\n',
   'I am not dead yet\n',
