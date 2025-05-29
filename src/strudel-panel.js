@@ -304,6 +304,7 @@ export class StrudelSession {
 
   // static scopeInjection = ``;
   static getScopeInjection = () => `
+  try {
     all(x=>x.scope({
       pos: 0.5,
       thickness: 5 * devicePixelRatio,
@@ -314,6 +315,9 @@ export class StrudelSession {
     samples('github:mot4i/garden');
     samples('github:eddyflux/crate');
     samples('github:yaxu/clean-breaks');
+} catch (err) {
+ console.warn('[strudel] scope injection failed', err);
+}
   `;
 
   // static syncedCpmInjection = ``;
