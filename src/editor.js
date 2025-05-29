@@ -136,10 +136,10 @@ addEventListener(
 // }
 // tickFontSize();
 
-let fontSize = parseFloat(localStorage.getItem('twirl_font_size') ?? '50');
+let fontSize = parseFloat(localStorage.getItem('twirl_font_size_4') ?? '40');
 if (isNaN(fontSize)) {
-  fontSize = 50;
-  localStorage.setItem('twirl_font_size', fontSize.toFixed(2));
+  fontSize = 40;
+  localStorage.setItem('twirl_font_size_4', fontSize.toFixed(2));
 }
 setTimeout(() => {
   const elem = window['elem'];
@@ -152,12 +152,12 @@ addEventListener(
     const elem = window['elem'];
     if (e.key === '=' && (e.ctrlKey || e.metaKey)) {
       fontSize *= 1.25;
-      localStorage.setItem('twirl_font_size', fontSize.toFixed(2));
+      localStorage.setItem('twirl_font_size_4', fontSize.toFixed(2));
       elem.style.fontSize = fontSize + 'px';
       e.preventDefault();
     } else if (e.key === '-' && (e.ctrlKey || e.metaKey)) {
       fontSize /= 1.25;
-      localStorage.setItem('twirl_font_size', fontSize.toFixed(2));
+      localStorage.setItem('twirl_font_size_4', fontSize.toFixed(2));
       elem.style.fontSize = fontSize + 'px';
       e.preventDefault();
     }
